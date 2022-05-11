@@ -133,9 +133,7 @@ public interface CocktailDBClient {
 
 ### Integrate in our API
 
-Now we can integrate this search into our API, this means replacing our dummy resources with this search call and transforming their responses into our responses.
-
-After this implementation following example request to our API should be up and running:
+Now we can integrate this search into our API, this means replacing our dummy resources with this search call and transforming their responses into our responses. After this implementation following example request to our API should be up and running:
 
 Request:
 ```

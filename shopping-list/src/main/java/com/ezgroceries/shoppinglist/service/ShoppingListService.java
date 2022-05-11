@@ -6,7 +6,6 @@ import com.ezgroceries.shoppinglist.resource.ShoppingListResource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -16,19 +15,11 @@ public class ShoppingListService {
 
     List<ShoppingListResource> shoppingLists = new ArrayList<>();
 
-    private List<CocktailResource> cocktailLists = new ArrayList(Arrays.asList(
-            new CocktailResource(
-                    UUID.fromString("23b3d85a-3928-41c0-a533-6538a71e17c4"), "Margerita",
-                    "Cocktail glass",
-                    "Rub the rim of the glass with the lime slice to make the salt stick to it. Take care to moisten..",
-                    "https://www.thecocktaildb.com/images/media/drink/wpxpvu1439905379.jpg",
-                    Arrays.asList("Tequila", "Triple sec", "Lime juice", "Salt")),
-            new CocktailResource(
-                    UUID.fromString("d615ec78-fe93-467b-8d26-5d26d8eab073"), "Blue Margerita",
-                    "Cocktail glass",
-                    "Rub rim of cocktail glass with lime juice. Dip rim in coarse salt..",
-                    "https://www.thecocktaildb.com/images/media/drink/qtvvyq1439905913.jpg",
-                    Arrays.asList("Tequila", "Blue Curacao", "Lime juice", "Salt"))));
+    private CocktailService cocktailService;
+
+    public ShoppingListService( CocktailService cocktailService) {
+        this.cocktailService = cocktailService;
+    }
 
 
     // create a shoppingList
@@ -41,6 +32,7 @@ public class ShoppingListService {
         return shoppingList;
     }
 
+
     // add cocktail(s) to a shoppinglist
     public List<CocktailResource> addCocktails(UUID shoppingListId, List<CocktailResource> cocktails) {
 
@@ -49,6 +41,7 @@ public class ShoppingListService {
 
         return cocktails;
     }
+
 
     //get a shoppingList
     public ShoppingListIngredients getShoppingList(UUID shoppingListId) {
@@ -71,7 +64,7 @@ public class ShoppingListService {
 
 
     // get the shoppingList via the shoppingListId
-    private ShoppingListResource retrieveShoppingList(UUID shoppingListId) {
+    public ShoppingListResource retrieveShoppingList(UUID shoppingListId) {
         return shoppingLists.stream().filter(shoppingList -> shoppingListId.equals(shoppingListId)).findAny().orElse(null);
     }
 
@@ -83,7 +76,7 @@ public class ShoppingListService {
 
         List<String> allIngredients = new ArrayList<>();
 
-        for (UUID cocktailId : shoppingList.getCocktails()) {
+        for (String cocktailId : shoppingList.getCocktails()) {
             allIngredients.addAll(getIngredients(cocktailId));
         }
 
@@ -98,11 +91,23 @@ public class ShoppingListService {
 
 
     // get the ingredients for a cocktail via the cocktailId
-    private List<String> getIngredients(UUID cocktailId) {
+    private List<String> getIngredients(String cocktailId) {
 
-        CocktailResource cocktail = cocktailLists.stream()
+        // replace hardcoding : Mapping UUID cocktailId to string search??
+        List<CocktailResource> cocktails = cocktailService.getCocktails("russian");
+
+        CocktailResource cocktail = cocktails.stream()
                 .filter(x -> x.getCocktailId().equals(cocktailId)).findAny().orElse(null);
 
-        return cocktail.getIngredients();
+        List<String> ingredients = new ArrayList<>();
+
+        for (String ingredient : cocktail.getIngredients()) {
+
+            if (ingredient!=null) {
+                ingredients.add(ingredient);
+            }
+        }
+
+        return ingredients;
     }
 }

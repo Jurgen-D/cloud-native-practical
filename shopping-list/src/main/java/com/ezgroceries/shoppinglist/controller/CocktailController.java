@@ -1,24 +1,31 @@
 package com.ezgroceries.shoppinglist.controller;
 
 import com.ezgroceries.shoppinglist.resource.CocktailResource;
+import com.ezgroceries.shoppinglist.service.CocktailService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/cocktails", produces = "application/json")
 public class CocktailController {
 
-    @GetMapping
-    public List<CocktailResource> get(@RequestParam String search) {
-        return getDummyResources();
+    private CocktailService cocktailService;
+
+    public CocktailController(CocktailService cocktailService) {
+        this.cocktailService = cocktailService;
     }
 
+    @GetMapping
+    public List<CocktailResource> get(@RequestParam String search) {
+
+        return cocktailService.getCocktails(search);
+    }
+
+    /*
     private List<CocktailResource> getDummyResources() {
         return Arrays.asList(
                 new CocktailResource(
@@ -34,5 +41,6 @@ public class CocktailController {
                         "https://www.thecocktaildb.com/images/media/drink/qtvvyq1439905913.jpg",
                         Arrays.asList("Tequila", "Blue Curacao", "Lime juice", "Salt")));
     }
+    */
 }
 

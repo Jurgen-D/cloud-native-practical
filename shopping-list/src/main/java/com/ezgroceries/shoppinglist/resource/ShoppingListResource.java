@@ -8,7 +8,7 @@ public class ShoppingListResource {
 
     private UUID shoppingListId;
     private String name;
-    private List<UUID> cocktails = new ArrayList<>();
+    private List<String> cocktails = new ArrayList<>();
 
     public ShoppingListResource(UUID shoppingListId, String name) {
         this.shoppingListId = shoppingListId;
@@ -31,15 +31,15 @@ public class ShoppingListResource {
         this.name = name;
     }
 
-    public List<UUID> getCocktails() {
+    public List<String> getCocktails() {
         return cocktails;
     }
 
-    public void setCocktails(List<UUID> cocktails) {
+    public void setCocktails(List<String> cocktails) {
         this.cocktails = cocktails;
     }
 
-    public void addCocktails(List<UUID> cocktailIds) {
+    public void addCocktails(List<String> cocktailIds) {
         this.cocktails.addAll(cocktailIds);
     }
 }
