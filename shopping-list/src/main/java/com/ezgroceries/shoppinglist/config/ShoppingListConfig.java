@@ -9,6 +9,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 
 @Configuration
+//@PropertySource({"application.properties","application-hsqldb.properties"})
 public class ShoppingListConfig {
 
     @Bean
