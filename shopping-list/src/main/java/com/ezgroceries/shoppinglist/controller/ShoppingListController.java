@@ -1,6 +1,8 @@
 package com.ezgroceries.shoppinglist.controller;
 
 import com.ezgroceries.shoppinglist.ShoppingListIngredients;
+import com.ezgroceries.shoppinglist.entity.CocktailEntity;
+import com.ezgroceries.shoppinglist.entity.ShoppingListEntity;
 import com.ezgroceries.shoppinglist.resource.CocktailResource;
 import com.ezgroceries.shoppinglist.resource.ShoppingListResource;
 import com.ezgroceries.shoppinglist.service.ShoppingListService;
@@ -23,14 +25,14 @@ public class ShoppingListController {
 
 
     @PostMapping(path="shopping-lists")
-    public ResponseEntity<ShoppingListResource> createShoppingList(@RequestBody ShoppingListResource newShoppingList) {
+    public ResponseEntity<ShoppingListEntity> createShoppingList(@RequestBody ShoppingListEntity newShoppingList) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(shoppingListService.create(newShoppingList));
     }
 
 
     @PutMapping(path="shopping-lists/{shoppingListId}/cocktails")
-    public ResponseEntity<List<CocktailResource>> addCocktails(@PathVariable UUID shoppingListId, @RequestBody List<CocktailResource> cocktails) {
+    public ResponseEntity<List<CocktailEntity>> addCocktails(@PathVariable UUID shoppingListId, @RequestBody List<CocktailEntity> cocktails) {
 
         return ResponseEntity.ok(shoppingListService.addCocktails(shoppingListId, cocktails));
     }
@@ -48,5 +50,6 @@ public class ShoppingListController {
 
         return ResponseEntity.ok(shoppingListService.getShoppingLists());
     }
+
 }
 

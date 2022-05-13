@@ -3,11 +3,12 @@ package com.ezgroceries.shoppinglist.resource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class CocktailResource {
 
-    private String cocktailId;
+    private UUID cocktailId;
 
     @JsonIgnore
     private String name;
@@ -18,13 +19,13 @@ public class CocktailResource {
     @JsonIgnore
     private String image;
     @JsonIgnore
-    private List<String> ingredients;
+    private Set<String> ingredients;
 
-    public CocktailResource(String cocktailId) {
+    public CocktailResource(UUID cocktailId) {
         this.cocktailId = cocktailId;
     }
 
-    public CocktailResource(String cocktailId, String name, String glass, String instructions, String image, List<String> ingredients) {
+    public CocktailResource(UUID cocktailId, String name, String glass, String instructions, String image, Set<String> ingredients) {
         this.cocktailId = cocktailId;
         this.name = name;
         this.glass = glass;
@@ -33,11 +34,11 @@ public class CocktailResource {
         this.ingredients = ingredients;
     }
 
-    public String getCocktailId() {
+    public UUID getCocktailId() {
         return cocktailId;
     }
 
-    public void setCocktailId(String cocktailId) {
+    public void setCocktailId(UUID cocktailId) {
         this.cocktailId = cocktailId;
     }
 
@@ -73,11 +74,11 @@ public class CocktailResource {
         this.image = image;
     }
 
-    public List<String> getIngredients() {
+    public Set<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(Set<String> ingredients) {
         this.ingredients = ingredients;
     }
 }

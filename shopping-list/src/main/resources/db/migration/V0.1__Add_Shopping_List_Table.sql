@@ -1,4 +1,4 @@
-create table "SHOPPING_LIST" (
-  "ID" UUID PRIMARY KEY,
-  "NAME" TEXT
+create table SHOPPING_LIST (
+  ID UUID PRIMARY KEY,
+  NAME TEXT
 );

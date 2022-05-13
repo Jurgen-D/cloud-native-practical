@@ -19,7 +19,7 @@ public class CocktailController {
         this.cocktailService = cocktailService;
     }
 
-    @GetMapping
+    @GetMapping()
     public List<CocktailResource> get(@RequestParam String search) {
 
         return cocktailService.getCocktails(search);
